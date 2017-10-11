@@ -1,0 +1,270 @@
+$background-color: rgba(255,255,255,0.6);
+$text-color: hsla(0,0,0,0.6);
+$border-color: hsla(0,0,0,0.3);
+$lighter-background-color: rgba(255,255,255,0.9);
+$font-set: "Helvetica Neue", Arial, Helvetica, sans-serif;
+
+* {
+	@include box-sizing(border-box);
+}
+
+html {
+	height: 100%;
+	font-size: 20px;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%; 
+}
+
+body { 
+	background-color: rgb(179, 179, 179);
+	font-family: $font-set;
+	font-weight: 400;
+	color: $text-color;
+}
+
+#wrapper {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	@include transition(background-color 0.3s linear);
+}
+
+.sidebar{
+	position: absolute;
+	width: 300px;
+	float: left;
+	margin: 0 1em;
+	.section {
+		background-color: $background-color;
+		margin: 1em 0;
+		border-radius: 3px;
+		.option {
+			display: block;
+			width: 100%;
+			border-bottom: 1px solid $border-color;
+			padding: 1em;
+			transition: background-color 0.2s linear;
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+	}
+}
+
+#predefined{
+	.option {
+		&:hover {
+			background-color: rgba(255,255,255,0.4);
+			cursor: pointer;
+		}
+	}
+}
+
+#controls {
+	background-color: transparent;
+	margin-top: 0;
+	button.option {
+		font-size: 1rem;
+		background-color: $lighter-background-color;
+		border: 0;
+		cursor: pointer;
+		margin: 0;
+		padding: 1em;
+		color: $text-color;
+		border-radius: 3px;
+		font-family: $font-set;
+		@include appearance(none);
+		&:last-child{
+			border-bottom: 0;
+		}
+		&:hover {
+			background-color: rgb(255,255,255);
+		}
+		&.timerRunning {
+			background-color: $background-color;
+			&:hover {
+				background-color: rgba(255,255,255,0.8);
+			}
+		}
+	}
+}
+
+#custom {
+	input {
+		float: right;
+		display: block;
+		width: 3.5em;
+		font-size: 1rem;
+		text-align: center;
+		border: 2px solid transparent;
+		outline: none;
+		padding: 0.2em;
+		margin: -5px 0 0 0;
+		background-color: $lighter-background-color;
+		color: $text-color;
+		border-radius: 3px;
+		font-family: $font-set;
+		@include appearance(none);
+		-webkit-font-smoothing: antialiased;
+		&:focus {
+			background-color: #fff;
+			&.valid { border-color: hsl(119, 59%, 52%); }
+			~ .tooltip { @include animation(tooltipEntrance 0.15s linear); display: block; opacity: 1;}
+		}
+		&.invalid { 
+			border-color: hsl(353, 76%, 58%); 
+			~ .tooltip { display: block; opacity: 1; }
+			}
+	}
+}
+
+#predefined {
+	.label {
+		margin-left: 0.5em;
+		vertical-align: middle;
+	}
+}
+
+.tooltip {
+	display: none;
+	opacity: 0;
+	background: $lighter-background-color;
+	position: absolute;
+	right: -175px;
+	margin-top: -2.2em;
+	border-radius: 10px;
+	min-width: 160px;
+	padding: 15px 10px;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+.tooltip:before{
+	content:'';
+	display:block;
+	width:0;
+	height:0;
+	position:absolute;
+
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-right:8px solid $lighter-background-color;
+	left:-8px;
+
+	top:18px;
+}
+
+.clockWrapper {
+	float: left;
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.clockInnerWrapper {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+	height: 100%;
+}
+
+.clock {
+	font-family: "Droid Sans Mono", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    display: block;
+    text-align: center;
+    font-size: 3rem;
+    color: $background-color;
+    padding-left: 300px;
+    .colon {
+	    font-family: "Apple SD Gothic Neo", Helvetica, Arial, sans-serif;
+    }
+}
+
+#grower {
+	position: absolute;
+	height: 2rem;
+	bottom: 0;
+	background-color: $background-color;
+}
+
+#hideAway {
+	@include transform (translateY(0));
+	opacity: 1;
+	max-height: 1000px;
+}
+
+@include keyframes(tooltipEntrance){
+	0% {
+		display: block;
+		opacity: 0;	
+		}
+	1% {
+		opacity: 0;
+		@include transform(translateX(15px));
+	}
+	100% {
+		opacity: 1;
+		@include transform(translateX(0));
+	}
+}
+
+@media screen and (max-width:570px){
+	
+	html {
+		font-size: 16px;
+	}
+	
+	.clockWrapper {
+		display: block;
+		height: auto;
+	}
+	
+	.clockInnerWrapper {
+		display: block;
+		height: auto;
+	}
+	
+	.clock {
+		width: 100% !important;
+		padding-left: 0;
+	}
+	
+	.sidebar {
+		position: relative;
+		width: 100%;
+		margin: 0;
+		padding: 0 1em;
+		.option {
+			padding: 0.8em !important;
+		}
+	}
+	
+	.tooltip {
+		right: 80px;
+		margin-top: -1.8em;
+		padding: 0.6em;
+	}
+	.tooltip:before{
+		left: auto;
+		right: -12px;
+		border: 6px solid transparent;
+		border-left: 6px solid $lighter-background-color;
+		top:11px;
+	}
+
+}
+
+@media screen and (max-height:570px){
+	
+	.sidebar .option {
+		padding: 0.6em !important;
+	}
+	
+	#custom input {
+		padding: 0em;
+		margin-top: -2px;
+	}
+	
+}
