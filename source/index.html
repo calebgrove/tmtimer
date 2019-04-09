@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width = device-width, initial-scale = 1.00, minimum-scale = 1.00, maximum-scale = 1.00"/>
+		<link rel="icon" type="image/png" href="favicon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-title" content="Speech Timer"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="description" content="Time your speeches at home with this easy to use online Toastmasters speech timer."/>
+		<title>Speech Timer for Toastmasters</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+		<link href="styles.css" rel="stylesheet" type="text/css">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21273781-26"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			
+			gtag('config', 'UA-21273781-26');
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="sidebar" id="sidebar">
+				<div id="hideAway">
+					<div class="section" id="predefined">
+						<label class="option"><input type="radio" name="predefinedOption" value="tableTopics" id="tabletopics" checked="checked"/><span class="label">Table Topics&trade; (1-2)</span></label>
+						<label class="option"><input type="radio" name="predefinedOption" value="evaluation" id="evaluation"/><span class="label">Evaluation (2-3)</span></label>
+						<label class="option"><input type="radio" name="predefinedOption" value="speech" id="speech"/><span class="label">Speech (5-7)</span></label>
+						<label class="option"><input type="radio" name="predefinedOption" value="longSpeech" id="longspeech"/><span class="label">Speech (7-9)</span></label>
+					</div>
+					<div class="section" id="custom">
+						<label class="option">Green light:
+							<input type="text" onkeypress="validateWatch(this)" onblur="validateThis(this)" id="customGreenLight" value="1:00">
+							<div class="tooltip">Format: <code>mm:ss</code></div>
+						</label>
+						<label class="option">Yellow light:
+							<input type="text" onkeypress="validateWatch(this)" onblur="validateThis(this)" id="customYellowLight" value="1:30">
+							<div class="tooltip">Format: <code>mm:ss</code></div>
+						</label>
+						<label class="option">Red light:
+							<input type="text" onkeypress="validateWatch(this)" onblur="validateThis(this)" id="customRedLight" value="2:00">
+							<div class="tooltip">Format: <code>mm:ss</code></div>
+						</label>
+						<label class="option">Disqualification:
+							<input type="text" onkeypress="validateWatch(this)" onblur="validateThis(this)" id="customDq" value="2:30">
+							<div class="tooltip">Format: <code>mm:ss</code></div>
+						</label>
+					</div>
+				</div>
+				<div class="section" id="controls">
+					<button class="option" id="controlButton">Start</button>
+				</div>
+			</div>
+			<div class="clockWrapper" id="clockWrapper">
+				<div class="clockInnerWrapper">
+					<span class="clock" id="clock">00:00</span>
+				</div>
+			</div>
+			<div class="grower" id="grower"></div>
+		</div>
+		<button id="infoButton">i</button>
+		<section id="info">
+			<div class="info__inner">
+				<h1>Toastmasters Speech Timer</h1>
+				<p>This in an unoffical timer for <a href="https://www.toastmasters.org/">Toastmasters International</a> format speeches, built by myself, <strong>Caleb Grove</strong>. I build websites professionally, so let me <a href="https://grovedesign.co">help your business succeed online</a>.</p>
+				<h2>Usage</h2>
+				<p>Using this timer is pretty dang easy. Just select the speech format you are timing for, customize the times if you so desire, and press “Start”. When the rousing speech is concluded, hit “Stop” and elbow the Ah-Counter. Or not. You can also start and stop the timer by mashing the spacebar.</p>
+				<h3>Offline Support</h3>
+				<p>At friend’s wedding? Lost in the Alps? On the Metro? You can now practice your speeches anywhere, because this timer works offline! So long as you opened this website recently with an up-to-date browser, you can return to time your speeches just about anywhere.</p>
+				<h3>A Cheeky App</h3>
+				<p>If you are using an iOS device, you can convert this website into an app. Just tap on the sharing icon in Safari, and smash “Add to Home Screen”. If you use Android, well, you’re on your own.</p>
+				<h3>Feedback</h3>
+				If you have cool ideas, don’t use the Pony Express to send me a letter. What are you thinking? They went out of business 150 years ago! Instead, email ’em to <a href="mailto:hi@grovedesign.co">hi@grovedesign.co</a>
+			</div>
+		</section>
+		<script>
+			if('serviceWorker' in navigator) {
+				navigator.serviceWorker
+				.register('sw.js')
+				.then(function() { console.log("Service Worker Registered"); });
+			}
+		</script>
+	</body>
+	<script src="app.js"></script>
+</html>
