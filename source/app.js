@@ -1,6 +1,4 @@
-/* TODO:
-
-*/
+// @codekit-prepend "fittext", "global";
 
 //-----------------
 //-----------------
@@ -57,6 +55,18 @@ for(var i=0; i<radioOptions.length; i++){
 // watch start button
 controlButton.onclick = function(){ startTimer() };
 
+//  watch the space bar
+document.onkeypress = function (e) {
+	if (e.keyCode == 32) {
+		// check if an input is currently in focus
+		if (document.activeElement.nodeName.toLowerCase() != "button") {
+			// prevent default spacebar event (scrolling to bottom)
+			e.preventDefault();
+			startTimer();
+		}
+	}
+};
+
 //-----------------
 //-----------------
 // FIRE UP THEM ENGINES, 'CAUSE HERE WE GO! :P
@@ -64,6 +74,12 @@ controlButton.onclick = function(){ startTimer() };
 //-----------------
 
 function startTimer(){
+
+	// If the clock is already running, instead of starting, stop the timer.
+	if (currentTime != 0) {
+		stopTimer();
+		return false;
+	}
 	
 	// check that the values are valid, otherwise, kill and alert.
 	var invalidArray = [];
@@ -119,6 +135,17 @@ function startTimer(){
 	// now that we are running, time to change the ui a bit
 	controlButton.innerHTML = "Stop";
 	controlButton.onclick = stopTimer;
+	//  watch the space bar
+	document.onkeypress = function (e) {
+		if (e.keyCode == 32) {
+			// check if an input is currently in focus
+			if (document.activeElement.nodeName.toLowerCase() != "button") {
+				// prevent default spacebar event (scrolling to bottom)
+				e.preventDefault();
+				stopTimer();
+			}
+		}
+	};
 	hideControls();
 	
 	// begin growing the chrono bar
@@ -127,6 +154,9 @@ function startTimer(){
 	// tick tock, start the clock
 	clockElement.innerHTML = (msToTime(0));
 	clockIntervalId = setInterval(reportTime, 1000);
+
+	// log it to analytics
+	gtag('event', 'Timer Start');
 }
 
 //-----------------
@@ -140,6 +170,17 @@ function stopTimer(){
 	// ui changes
 	controlButton.innerHTML = "Start";
 	controlButton.onclick = restartTimer;
+	//  watch the space bar
+	document.onkeypress = function (e) {
+		if (e.keyCode == 32) {
+			// check if an input is currently in focus
+			if (document.activeElement.nodeName.toLowerCase() != "button") {
+				// prevent default spacebar event (scrolling to bottom)
+				e.preventDefault();
+				restartTimer();
+			}
+		}
+	};
 	showControls();
 	
 	// stop the background color changer
@@ -155,6 +196,9 @@ function stopTimer(){
 	// stop the clock
 	clearInterval(clockIntervalId);
 	currentTime = 0;
+
+	// log it to analytics
+	gtag('event', 'Timer Stop');
 }
 
 //-----------------

@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^tmtimer\.calebgrove\.com [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://tmtimer.calebgrove.com/$1 [R=301,L]
+
+Options +FollowSymlinks
+RewriteEngine On
+RewriteRule ^index.html$ https://tmtimer.calebgrove.com [R=301,L]
+
+# BEGIN DEFLATE
+	AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript image/svg+xml
+# END DEFLATE
+
+# Don't cache the service worker!
+<FilesMatch "sw\\.js$">
+    Header set Cache-Control "max-age=0,no-cache,no-store,must-revalidate"
+</FilesMatch>

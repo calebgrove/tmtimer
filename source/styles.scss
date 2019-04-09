@@ -1,25 +1,34 @@
-$background-color: rgba(255,255,255,0.6);
-$text-color: hsla(0,0,0,0.6);
-$border-color: hsla(0,0,0,0.3);
-$lighter-background-color: rgba(255,255,255,0.9);
-$font-set: "Helvetica Neue", Arial, Helvetica, sans-serif;
+$background-color: hsla(0, 0, 100, 0.7);
+$low-contrast: hsla(0, 0, 100, 0.3);
+$text-color: hsla(0, 0, 0, 0.6);
+$border-color: hsla(0, 0, 0, 0.3);
+$lighter-background-color: hsla(0, 0, 100, 1);
+$font-set: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+$box-shadow: 0 0 2em hsla(0, 0, 0, 0.2);
 
 * {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 }
 
 html {
 	height: 100%;
 	font-size: 20px;
 	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%; 
+	-webkit-text-size-adjust: 100%;
+	-webkit-overflow-scrolling: touch;
 }
 
 body { 
-	background-color: rgb(179, 179, 179);
+	background-color: hsla(0, 0%, 27%, 1);
 	font-family: $font-set;
 	font-weight: 400;
 	color: $text-color;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
 #wrapper {
@@ -28,18 +37,23 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	@include transition(background-color 0.3s linear);
+	transition: background-color 0.3s linear;
+	overflow: scroll;
 }
 
 .sidebar{
 	position: absolute;
 	width: 300px;
+	top: 0;
+	bottom: 0;
 	float: left;
 	margin: 0 1em;
+	overflow: scroll;
 	.section {
 		background-color: $background-color;
 		margin: 1em 0;
-		border-radius: 3px;
+		border-radius: 6px;
+		box-shadow: $box-shadow;
 		.option {
 			display: block;
 			width: 100%;
@@ -56,7 +70,7 @@ body {
 #predefined{
 	.option {
 		&:hover {
-			background-color: rgba(255,255,255,0.4);
+			background-color: hsla(0, 0, 100, 0.4);;
 			cursor: pointer;
 		}
 	}
@@ -67,15 +81,15 @@ body {
 	margin-top: 0;
 	button.option {
 		font-size: 1rem;
+		font-weight: 600;
 		background-color: $lighter-background-color;
 		border: 0;
 		cursor: pointer;
 		margin: 0;
 		padding: 1em;
 		color: $text-color;
-		border-radius: 3px;
+		border-radius: 6px;
 		font-family: $font-set;
-		@include appearance(none);
 		&:last-child{
 			border-bottom: 0;
 		}
@@ -106,12 +120,11 @@ body {
 		color: $text-color;
 		border-radius: 3px;
 		font-family: $font-set;
-		@include appearance(none);
 		-webkit-font-smoothing: antialiased;
 		&:focus {
 			background-color: #fff;
 			&.valid { border-color: hsl(119, 59%, 52%); }
-			~ .tooltip { @include animation(tooltipEntrance 0.15s linear); display: block; opacity: 1;}
+			~ .tooltip { animation: tooltipEntrance 0.15s linear; display: block; opacity: 1;}
 		}
 		&.invalid { 
 			border-color: hsl(353, 76%, 58%); 
@@ -171,15 +184,13 @@ body {
 }
 
 .clock {
-	font-family: "Droid Sans Mono", "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-feature-settings: "tnum";
     display: block;
     text-align: center;
     font-size: 3rem;
-    color: $background-color;
+    color: $low-contrast;
     padding-left: 300px;
-    .colon {
-	    font-family: "Apple SD Gothic Neo", Helvetica, Arial, sans-serif;
-    }
 }
 
 #grower {
@@ -190,31 +201,77 @@ body {
 }
 
 #hideAway {
-	@include transform (translateY(0));
+	transform: translateY(0);
 	opacity: 1;
 	max-height: 1000px;
 }
 
-@include keyframes(tooltipEntrance){
+#infoButton {
+	position: absolute;
+	z-index: 100;
+	top: 3vmin;
+	right: 3vmin;
+	font-size: 1rem;
+	font-weight: 600;
+	background-color: $background-color;
+	border: 0;
+	cursor: pointer;
+	margin: 0;
+	height: 45px;
+	width: 45px;
+	color: $text-color;
+	border-radius: 100%;
+	font-family: monospace;
+	display: flex;
+	justify-content: center;
+	box-shadow: $box-shadow;
+	border: 1px solid $low-contrast;
+	&:last-child{
+		border-bottom: 0;
+	}
+	&:hover {
+		background-color: rgb(255,255,255);
+	}
+}
+
+#info {
+	display: none;
+	opacity: 0;
+	background-color: hsla(0, 0, 0, .4);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	justify-content: center;
+	align-items: center;
+	.info__inner {
+		background-color: #fff;
+		border-radius: .5rem;
+		box-shadow: $box-shadow;
+		padding: calc(2% + 1em);
+		max-width: 45em;
+		max-height: 100vh;
+		overflow: scroll;
+	}
+}
+
+@keyframes tooltipEntrance {
 	0% {
 		display: block;
 		opacity: 0;	
 		}
 	1% {
 		opacity: 0;
-		@include transform(translateX(15px));
+		transform: translateX(15px);
 	}
 	100% {
 		opacity: 1;
-		@include transform(translateX(0));
+		transform: translateX(0);
 	}
 }
 
 @media screen and (max-width:570px){
-	
-	html {
-		font-size: 16px;
-	}
 	
 	.clockWrapper {
 		display: block;

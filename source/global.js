@@ -15,7 +15,9 @@ var bgElement         = document.getElementById('wrapper'),
 	grower            = document.getElementById('grower'),
 	clockElement      = document.getElementById('clock'),
 	controlButton     = document.getElementById('controlButton'),
+	infoButton        = document.getElementById('infoButton'),
 	clockWrapper      = document.getElementById('clockWrapper'),
+	infoWrapper       = document.getElementById('info'),
 	customGreenLight  = customArray[0],
 	customYellowLight = customArray[1],
 	customRedLight    = customArray[2],
@@ -27,7 +29,7 @@ var clockIntervalId    = undefined,
 	maxColorTimeoutId  = undefined,
 	fullColorTimeoutId = undefined,
 	pulsateIntervalId  = undefined,
-	currentTime        = undefined;
+	currentTime        = 0;
 
 var minTime = undefined,
 	midTime = undefined,
@@ -35,13 +37,12 @@ var minTime = undefined,
 	dqTime  = undefined,
 	growerAnimation = undefined;
 
-var defaultColor = 'hsl(0, 0%, 70%)',    // gray
+var defaultColor = 'hsl(0, 0%, 27%)',    // gray
 	minColor     = 'hsl(119, 59%, 52%)', // green
 	midColor     = 'hsl(51, 78%, 57%)',  // yellow
 	maxColor     = 'hsl(353, 76%, 58%)'; // red
 
 TweenLite.defaultEase = Linear.easeNone;
-var currentTime = 0;
 
 //-----------------
 //-----------------
@@ -73,7 +74,7 @@ function msToTime(duration){
 	minutes = (minutes < 10) ? '0' + minutes : minutes;
 	seconds = (seconds < 10) ? '0' + seconds : seconds;
 
-	return minutes + '<span class="colon">:</span>' + seconds;
+	return minutes + ':' + seconds;
 }
 
 //-----------------
@@ -132,18 +133,19 @@ function reportTime(){
 function hideControls() {
 	var elToHide = document.getElementById('hideAway');
 	TweenLite.to(elToHide, 0.5, {css: {
-		transform: 'translateY(-2000px)',
+		transform: 'translate(-2000px)',
 		opacity:'0',
-		maxHeight:'0'
+		maxHeight:'0',
+		margin:'0'
 	}});
 	TweenLite.to(clockElement, 0.2, {css:{paddingLeft:'0'}, delay:0.5});
+	TweenLite.to(infoButton, 0.5, {css: {opacity:'0',}});
 	controlButton.className += ' timerRunning'
 }
 
 function showControls() {
 	var elToShow = document.getElementById('hideAway');
-	var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-	console.log(w);
+	var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	if(w > 570){
 		// we only want the clock to slide 300px to the right if we are at a large viewport
 		var fullClockAnimation = TweenLite.to(clockElement, 0.2, {css:{paddingLeft:'300px'}});
@@ -153,7 +155,67 @@ function showControls() {
 	TweenLite.to(elToShow, 0.5, {css: {
 		transform: 'translateY(0)',
 		opacity:'1',
-		maxHeight:'1000px'
+		maxHeight:'1000px',
+		height: 'auto'
 	}, delay: 0.2});
+	TweenLite.to(infoButton, 0.5, {css: {opacity:'1',}});
 	controlButton.className = controlButton.className.replace( /(?:^|\s)timerRunning(?!\S)/ , '' )
 }
+
+function showInfo() {
+	// Blur the background
+	TweenLite.to(bgElement, 0.5, {css: {
+		filter: 'blur(10px)',
+	}, delay: 0.2});
+
+	TweenLite.to(infoButton, 0.5, {css: {
+		backgroundColor: 'red',
+		color: 'white',
+		//fontSize: '1.5em'
+	}, delay: 0});
+
+	// Make the modal visible
+	TweenLite.to(infoWrapper, 0, {css: {
+		display: 'flex',
+	}});
+
+	TweenLite.to(infoWrapper, 0.25, {css: {
+		opacity: '1',
+	}, delay: 0.2});
+
+	//infoWrapper.onclick = hideInfo();
+
+	infoButton.onclick = function(){ hideInfo() };
+	infoButton.innerHTML = "x";
+
+	// Log it to analytics:
+	gtag('event', 'Info Displayed');
+}
+
+function hideInfo() {
+	// Blur the background
+	TweenLite.to(bgElement, 0.5, {css: {
+		filter: 'blur(0)',
+	}, delay: 0.2});
+
+	TweenLite.to(infoButton, 0.5, {css: {
+		backgroundColor: 'hsla(0, 0, 100, 0.7)',
+		color: 'black',
+		fontSize: '1em',
+		fontWeight: '400',
+	}, delay: 0.2});
+
+	// Make the modal visible
+	TweenLite.to(infoWrapper, 0, {css: {
+		display: 'none',
+	}});
+
+	TweenLite.to(infoWrapper, 0.5, {css: {
+		opacity: '0',
+	}, delay: 0.2});
+
+	infoButton.onclick = function(){ showInfo() };
+	infoButton.innerHTML = "i";
+}
+
+infoButton.onclick = function(){ showInfo() };
