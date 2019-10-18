@@ -168,8 +168,8 @@ function startTimer(){
 function stopTimer(){
 	
 	// ui changes
-	controlButton.innerHTML = "Start";
-	controlButton.onclick = restartTimer;
+	controlButton.innerHTML = "Resume";
+	controlButton.onclick = resumeTimer;
 	//  watch the space bar
 	document.onkeypress = function (e) {
 		if (e.keyCode == 32) {
@@ -177,11 +177,11 @@ function stopTimer(){
 			if (document.activeElement.nodeName.toLowerCase() != "button") {
 				// prevent default spacebar event (scrolling to bottom)
 				e.preventDefault();
-				restartTimer();
+				resetTimer();
 			}
 		}
 	};
-	showControls();
+
 	
 	// stop the background color changer
 	window.clearTimeout(minColorTimeoutId);
@@ -195,10 +195,63 @@ function stopTimer(){
 	
 	// stop the clock
 	clearInterval(clockIntervalId);
-	currentTime = 0;
+
+	// show reset button
+	TweenLite.to(resetButton, 0.5, { css: {
+		transform: 'translate(0)',
+	}});
+
+	// watch the reset button
+	resetButton.onclick = function(){ resetTimer() };
 
 	// log it to analytics
 	gtag('event', 'Timer Stop');
+}
+
+
+//-----------------
+//-----------------
+// RESUME THE TIMER
+//-----------------
+//-----------------
+
+function resumeTimer(){
+	growerAnimation.resume();
+	clockIntervalId = setInterval(reportTime, 1000);
+	controlButton.innerHTML = "Stop";
+	controlButton.onclick = stopTimer;
+	TweenLite.to(resetButton, 0.5, { css: {
+		transform: 'translate(-2000px)',
+	}});
+	//  watch the space bar
+	document.onkeypress = function (e) {
+		if (e.keyCode == 32) {
+			// check if an input is currently in focus
+			if (document.activeElement.nodeName.toLowerCase() != "button") {
+				// prevent default spacebar event (scrolling to bottom)
+				e.preventDefault();
+				stopTimer();
+			}
+		}
+	};
+}
+
+//-----------------
+//-----------------
+// RESET THE TIMER
+//-----------------
+//-----------------
+
+function resetTimer(){
+	controlButton.innerHTML = "Start";
+	controlButton.onclick = startTimer;
+	clockElement.innerHTML = (msToTime(0));
+	colorChange(defaultColor);
+	showControls();
+	growerAnimation.seek(0);
+	TweenLite.to(resetButton, 0.5, { css: {
+		transform: 'translate(-2000px)',
+	}});
 }
 
 //-----------------

@@ -54,7 +54,8 @@ body {
 		margin: 1em 0;
 		border-radius: 6px;
 		box-shadow: $box-shadow;
-		.option {
+	}
+	.option {
 			display: block;
 			width: 100%;
 			border-bottom: 1px solid $border-color;
@@ -64,7 +65,6 @@ body {
 				border-bottom: 0;
 			}
 		}
-	}
 }
 
 #predefined{
@@ -102,6 +102,13 @@ body {
 				background-color: rgba(255,255,255,0.8);
 			}
 		}
+	}
+	#resetButton {
+		transform: translate(-2000px);
+		margin-top: 1em;
+		//opacity: 0;
+		//max-height: 0;
+		//margin: 0;
 	}
 }
 

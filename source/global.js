@@ -15,6 +15,7 @@ var bgElement         = document.getElementById('wrapper'),
 	grower            = document.getElementById('grower'),
 	clockElement      = document.getElementById('clock'),
 	controlButton     = document.getElementById('controlButton'),
+	resetButton       = document.getElementById('resetButton'),
 	infoButton        = document.getElementById('infoButton'),
 	clockWrapper      = document.getElementById('clockWrapper'),
 	infoWrapper       = document.getElementById('info'),
@@ -140,7 +141,8 @@ function hideControls() {
 	}});
 	TweenLite.to(clockElement, 0.2, {css:{paddingLeft:'0'}, delay:0.5});
 	TweenLite.to(infoButton, 0.5, {css: {opacity:'0',}});
-	controlButton.className += ' timerRunning'
+	controlButton.className += ' timerRunning';
+	resetButton.className += ' timerRunning';
 }
 
 function showControls() {
