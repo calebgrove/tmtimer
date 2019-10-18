@@ -41,10 +41,10 @@ function setCustomValues(){
 		doSetCustomValues("1:00", "1:30", "2:00", "2:30");
 	} else if (getCheckedValue(radioOptions) === "evaluation"){
 		doSetCustomValues("2:00", "2:30", "3:00", "3:30");
+	} else if (getCheckedValue(radioOptions) === "icebreaker"){
+		doSetCustomValues("4:00", "5:00", "6:00", "6:30");
 	} else if (getCheckedValue(radioOptions) === "speech"){
-		doSetCustomValues("5:00", "6:00", "7:00", "7:30");
-	} else if (getCheckedValue(radioOptions) === "longSpeech"){
-		doSetCustomValues("7:00", "8:00", "9:00", "9:30");
+		doSetCustomValues("5:00", "7:00", "8:00", "8:30");
 	}
 }
 
