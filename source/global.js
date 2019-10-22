@@ -15,6 +15,7 @@ var bgElement         = document.getElementById('wrapper'),
 	grower            = document.getElementById('grower'),
 	clockElement      = document.getElementById('clock'),
 	controlButton     = document.getElementById('controlButton'),
+	resetButton       = document.getElementById('resetButton'),
 	infoButton        = document.getElementById('infoButton'),
 	clockWrapper      = document.getElementById('clockWrapper'),
 	infoWrapper       = document.getElementById('info'),
@@ -90,6 +91,19 @@ function validate(toValidate, regex) {
 
 }
 
+// watch space bar and modify start button
+function onSpaceKey(buttonAction) {
+	document.onkeypress = function (e) {
+		if (e.keyCode == 32) {
+			// check if an input is currently in focus
+			if (document.activeElement.nodeName.toLowerCase() != "button") {
+				// prevent default spacebar event (scrolling to bottom)
+				e.preventDefault();
+				buttonAction();
+			}
+		}
+	}
+}
 //-----------------
 // timing core
 //-----------------
@@ -140,7 +154,9 @@ function hideControls() {
 	}});
 	TweenLite.to(clockElement, 0.2, {css:{paddingLeft:'0'}, delay:0.5});
 	TweenLite.to(infoButton, 0.5, {css: {opacity:'0',}});
-	controlButton.className += ' timerRunning'
+	controlButton.className += ' timerRunning';
+	resetButton.className += ' timerRunning';
+	//console.log("controls hidden");
 }
 
 function showControls() {
