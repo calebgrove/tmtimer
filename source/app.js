@@ -56,16 +56,7 @@ for(var i=0; i<radioOptions.length; i++){
 controlButton.onclick = function(){ startTimer() };
 
 //  watch the space bar
-document.onkeypress = function (e) {
-	if (e.keyCode == 32) {
-		// check if an input is currently in focus
-		if (document.activeElement.nodeName.toLowerCase() != "button") {
-			// prevent default spacebar event (scrolling to bottom)
-			e.preventDefault();
-			startTimer();
-		}
-	}
-};
+onSpaceKey(startTimer);
 
 //-----------------
 //-----------------
@@ -77,6 +68,7 @@ function startTimer(){
 
 	// If the clock is already running, instead of starting, stop the timer.
 	if (currentTime != 0) {
+		//console.log("Reset not complete");
 		stopTimer();
 		return false;
 	}
@@ -94,7 +86,6 @@ function startTimer(){
 	if(invalidArray.length > 0){
 		
 		// okay, let's build the alert
-		
 		invalidArray.map(function(arrayCell){
 			if(arrayCell.id === "customGreenLight"){
 				readableArray.push("green light");
@@ -135,17 +126,11 @@ function startTimer(){
 	// now that we are running, time to change the ui a bit
 	controlButton.innerHTML = "Stop";
 	controlButton.onclick = stopTimer;
+
 	//  watch the space bar
-	document.onkeypress = function (e) {
-		if (e.keyCode == 32) {
-			// check if an input is currently in focus
-			if (document.activeElement.nodeName.toLowerCase() != "button") {
-				// prevent default spacebar event (scrolling to bottom)
-				e.preventDefault();
-				stopTimer();
-			}
-		}
-	};
+	onSpaceKey(stopTimer);
+
+	// hide controls
 	hideControls();
 	
 	// begin growing the chrono bar
@@ -157,6 +142,9 @@ function startTimer(){
 
 	// log it to analytics
 	gtag('event', 'Timer Start');
+
+	// log it to console
+	//console.log('timer started');
 }
 
 //-----------------
@@ -170,18 +158,9 @@ function stopTimer(){
 	// ui changes
 	controlButton.innerHTML = "Resume";
 	controlButton.onclick = resumeTimer;
-	//  watch the space bar
-	document.onkeypress = function (e) {
-		if (e.keyCode == 32) {
-			// check if an input is currently in focus
-			if (document.activeElement.nodeName.toLowerCase() != "button") {
-				// prevent default spacebar event (scrolling to bottom)
-				e.preventDefault();
-				resetTimer();
-			}
-		}
-	};
 
+	// watch the space bar
+	onSpaceKey(resetTimer);
 	
 	// stop the background color changer
 	window.clearTimeout(minColorTimeoutId);
@@ -206,8 +185,10 @@ function stopTimer(){
 
 	// log it to analytics
 	gtag('event', 'Timer Stop');
-}
 
+	// log it to console
+	//console.log('timer stopped');
+}
 
 //-----------------
 //-----------------
@@ -216,24 +197,27 @@ function stopTimer(){
 //-----------------
 
 function resumeTimer(){
-	growerAnimation.resume();
-	clockIntervalId = setInterval(reportTime, 1000);
+
+	// set control button to stop timer
 	controlButton.innerHTML = "Stop";
 	controlButton.onclick = stopTimer;
+
+	// hide reset button
 	TweenLite.to(resetButton, 0.5, { css: {
 		transform: 'translate(-2000px)',
 	}});
+
 	//  watch the space bar
-	document.onkeypress = function (e) {
-		if (e.keyCode == 32) {
-			// check if an input is currently in focus
-			if (document.activeElement.nodeName.toLowerCase() != "button") {
-				// prevent default spacebar event (scrolling to bottom)
-				e.preventDefault();
-				stopTimer();
-			}
-		}
-	};
+	onSpaceKey(stopTimer);
+
+	// resume grower
+	growerAnimation.resume();
+
+	// resume clock
+	clockIntervalId = setInterval(reportTime, 1000);
+
+	// log it to console
+	//console.log('timer resumed');
 }
 
 //-----------------
@@ -243,33 +227,34 @@ function resumeTimer(){
 //-----------------
 
 function resetTimer(){
+
+	// change to a start button
 	controlButton.innerHTML = "Start";
 	controlButton.onclick = startTimer;
-	clockElement.innerHTML = (msToTime(0));
+
+	// set clock to 00:00
+	currentTime = 0;
+	clockElement.innerHTML = (msToTime(currentTime));
+
+	// reset background color
 	colorChange(defaultColor);
-	showControls();
+
+	// set grower bar to 0
 	growerAnimation.seek(0);
+
+	// show controls
+	showControls();
+
+	//  watch the space bar
+	onSpaceKey(startTimer);
+
+	// hide reset button
 	TweenLite.to(resetButton, 0.5, { css: {
 		transform: 'translate(-2000px)',
 	}});
-}
 
-//-----------------
-//-----------------
-// RESTARTER :D
-//-----------------
-//-----------------
-
-function restartTimer() {
-	
-	// set the background to default color
-	colorChange(defaultColor);
-	
-	// set the chrono bar to 0 width
-	growerAnimation.restart();
-	
-	// start the timer
-	startTimer();
+	// log it to console
+	//console.log('timer reset');
 }
 
 //-----------------
@@ -277,7 +262,6 @@ function restartTimer() {
 // VALIDATION
 //-----------------
 //-----------------
-
 	
 // we need these to be global to the function
 var timeout;

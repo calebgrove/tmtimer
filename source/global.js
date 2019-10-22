@@ -91,6 +91,19 @@ function validate(toValidate, regex) {
 
 }
 
+// watch space bar and modify start button
+function onSpaceKey(buttonAction) {
+	document.onkeypress = function (e) {
+		if (e.keyCode == 32) {
+			// check if an input is currently in focus
+			if (document.activeElement.nodeName.toLowerCase() != "button") {
+				// prevent default spacebar event (scrolling to bottom)
+				e.preventDefault();
+				buttonAction();
+			}
+		}
+	}
+}
 //-----------------
 // timing core
 //-----------------
@@ -143,6 +156,7 @@ function hideControls() {
 	TweenLite.to(infoButton, 0.5, {css: {opacity:'0',}});
 	controlButton.className += ' timerRunning';
 	resetButton.className += ' timerRunning';
+	//console.log("controls hidden");
 }
 
 function showControls() {
