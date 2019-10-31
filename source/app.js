@@ -44,7 +44,7 @@ function setCustomValues(){
 	} else if (getCheckedValue(radioOptions) === "icebreaker"){
 		doSetCustomValues("4:00", "5:00", "6:00", "6:30");
 	} else if (getCheckedValue(radioOptions) === "speech"){
-		doSetCustomValues("5:00", "7:00", "8:00", "8:30");
+		doSetCustomValues("5:00", "6:00", "7:00", "7:30");
 	}
 }
 
