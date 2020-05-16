@@ -158,6 +158,7 @@ function stopTimer(){
 	// ui changes
 	controlButton.innerHTML = "Resume";
 	controlButton.onclick = resumeTimer;
+	showTheClock();
 
 	// watch the space bar
 	onSpaceKey(resetTimer);
@@ -202,6 +203,11 @@ function resumeTimer(){
 	controlButton.innerHTML = "Stop";
 	controlButton.onclick = stopTimer;
 
+	// if the clock is set to hide, hide it
+	if(showClock.checked == false){
+		hideTheClock();
+	}
+
 	// hide reset button
 	TweenLite.to(resetButton, 0.5, { css: {
 		transform: 'translate(-2000px)',
@@ -231,6 +237,11 @@ function resetTimer(){
 	// change to a start button
 	controlButton.innerHTML = "Start";
 	controlButton.onclick = startTimer;
+
+	// if the clock is set to hide, hide it
+	if(showClock.checked == false){
+		hideTheClock();
+	}
 
 	// set clock to 00:00
 	currentTime = 0;
