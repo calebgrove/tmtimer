@@ -140,11 +140,9 @@ body {
 	}
 }
 
-#predefined {
-	.label {
-		margin-left: 0.5em;
-		vertical-align: middle;
-	}
+#predefined .label, #settings .label {
+	margin-left: 0.5em;
+	vertical-align: middle;
 }
 
 .tooltip {

@@ -24,6 +24,8 @@ var bgElement         = document.getElementById('wrapper'),
 	customRedLight    = customArray[2],
 	customDq          = customArray[3];
 
+var showClock = document.getElementById('showClock');
+
 var clockIntervalId    = undefined,
 	minColorTimeoutId  = undefined,
 	midColorTimeoutId  = undefined,
@@ -235,3 +237,21 @@ function hideInfo() {
 }
 
 infoButton.onclick = function(){ showInfo() };
+
+function hideTheClock(){
+	TweenLite.to(clockElement, 0.2, {css: {color:'transparent',}});
+	TweenLite.to(grower, 0.2, {css: {backgroundColor:'transparent',}});
+}
+
+function showTheClock(){
+	TweenLite.to(clockElement, 0.2, {css: {color:'rgba(255,255,255,0.3)',}});
+	TweenLite.to(grower, 0.2, {css: {backgroundColor:'rgba(255,255,255,0.7)',}});
+}
+
+showClock.addEventListener('change', function() {
+	if (showClock.checked == false) {
+		hideTheClock();
+	} else {
+		showTheClock();
+	}
+});
