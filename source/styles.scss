@@ -38,7 +38,6 @@ body {
 	left: 0;
 	right: 0;
 	transition: background-color 0.3s linear;
-	overflow: scroll;
 }
 
 .sidebar{
@@ -48,7 +47,6 @@ body {
 	bottom: 0;
 	float: left;
 	margin: 0 1em;
-	overflow: scroll;
 	.section {
 		background-color: $background-color;
 		margin: 1em 0;
