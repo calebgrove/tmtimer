@@ -3,7 +3,7 @@ $low-contrast: hsla(0, 0, 100, 0.3);
 $text-color: hsla(0, 0, 0, 0.6);
 $border-color: hsla(0, 0, 0, 0.3);
 $lighter-background-color: hsla(0, 0, 100, 1);
-$font-set: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+$font-set: 'Nunito', -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
 $box-shadow: 0 0 2em hsla(0, 0, 0, 0.2);
 
 * {
@@ -79,7 +79,7 @@ body {
 	margin-top: 0;
 	button.option {
 		font-size: 1rem;
-		font-weight: 600;
+		font-weight: 700;
 		background-color: $lighter-background-color;
 		border: 0;
 		cursor: pointer;
@@ -104,13 +104,10 @@ body {
 	#resetButton {
 		transform: translate(-2000px);
 		margin-top: 1em;
-		//opacity: 0;
-		//max-height: 0;
-		//margin: 0;
 	}
 }
 
-#custom {
+#times {
 	input {
 		float: right;
 		display: block;
@@ -119,7 +116,7 @@ body {
 		text-align: center;
 		border: 2px solid transparent;
 		outline: none;
-		padding: 0.2em;
+		padding: 0.1em;
 		margin: -5px 0 0 0;
 		background-color: $lighter-background-color;
 		color: $text-color;
@@ -187,13 +184,13 @@ body {
 }
 
 .clock {
-	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Nunito", sans-serif;
 	font-feature-settings: "tnum";
-    display: block;
-    text-align: center;
-    font-size: 3rem;
-    color: $low-contrast;
-    padding-left: 300px;
+   display: block;
+   text-align: center;
+   font-size: 3rem;
+   color: $low-contrast;
+	padding-left: 300px;
 }
 
 #grower {

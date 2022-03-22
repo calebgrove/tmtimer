@@ -1,4 +1,4 @@
-appVersion = 202004152;
+appVersion = 0321200221;
 
 self.addEventListener("install", function(event) {
 	//console.log('WORKER: install event in progress.');
@@ -22,9 +22,10 @@ self.addEventListener("install", function(event) {
 			'/index.html',
 			'styles.css',
 			'app.js',
+			'favicon.ico',
 			'//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js',
 			'//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js',
-			'favicon.ico',
+			'https:////fonts.googleapis.com/css2?family=Nunito:wght@500..700&display=swap',
 		  ]);
 		})
 		.then(function() {

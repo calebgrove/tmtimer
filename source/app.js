@@ -41,10 +41,12 @@ function setCustomValues(){
 		doSetCustomValues("1:00", "1:30", "2:00", "2:30");
 	} else if (getCheckedValue(radioOptions) === "evaluation"){
 		doSetCustomValues("2:00", "2:30", "3:00", "3:30");
-	} else if (getCheckedValue(radioOptions) === "icebreaker"){
-		doSetCustomValues("4:00", "5:00", "6:00", "6:30");
 	} else if (getCheckedValue(radioOptions) === "speech"){
 		doSetCustomValues("5:00", "6:00", "7:00", "7:30");
+	} else if (getCheckedValue(radioOptions) === "custom"){
+		doSetCustomValues("", "", "", "");
+		// Move focus to first custom field:
+		customArray[0].focus();
 	}
 }
 
@@ -112,7 +114,7 @@ function startTimer(){
 			var alertMessage = "Whoops, none of the time values look like they are formatted correctly. There are two accepted formats: \nMM:SS (example: 14:00) \nM:SS (example: 4:15) \nPlease correct them, and try again."
 			return(alert(alertMessage));
 		} else {
-			var alertMessage = "Whoops, it looks like your formatted at least one of the time formats incorrectly. There are two accepted formats: \nMM:SS (example: 14:00) \nM:SS (example: 4:15) \nPlease correct them, and try again."
+			var alertMessage = "Whoops, it looks like you formatted at least one of the time formats incorrectly. There are two accepted formats: \nMM:SS (example: 14:00) \nM:SS (example: 4:15) \nPlease correct them, and try again."
 			return(alert(alertMessage));
 		}
 	}
@@ -274,16 +276,16 @@ function resetTimer(){
 //-----------------
 //-----------------
 	
-// we need these to be global to the function
+// we need this to be global to the function
 var timeout;
 
-// 1 second after the last keystroke, validate the active field.
+// 200ms after the last keystroke, validate the active field.
 function validateWatch(toWatch){
 	if(timeout) {
 		clearTimeout(timeout);
 		timeout = null;
 	}	
-	timeout = setTimeout(function(){ validateThis(toWatch) }, 1000);
+	timeout = setTimeout(function(){ validateThis(toWatch) }, 200);
 }
 
 var validateThis = function(toValidate){
@@ -299,3 +301,8 @@ var validateAll = function(array){
 		validateThis(array[i]);			
 	}
 }
+
+// validate on page load:
+document.addEventListener("DOMContentLoaded", function(){
+	validateAll(customArray);
+});
