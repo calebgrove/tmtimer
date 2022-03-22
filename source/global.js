@@ -11,7 +11,7 @@ var customArray = [
 	document.getElementById('customDq')
 ];
 
-var bgElement         = document.getElementById('wrapper'),
+var bgElement        = document.getElementById('wrapper'),
 	grower            = document.getElementById('grower'),
 	clockElement      = document.getElementById('clock'),
 	controlButton     = document.getElementById('controlButton'),
@@ -26,7 +26,7 @@ var bgElement         = document.getElementById('wrapper'),
 
 var showClock = document.getElementById('showClock');
 
-var clockIntervalId    = undefined,
+var clockIntervalId   = undefined,
 	minColorTimeoutId  = undefined,
 	midColorTimeoutId  = undefined,
 	maxColorTimeoutId  = undefined,
@@ -34,16 +34,16 @@ var clockIntervalId    = undefined,
 	pulsateIntervalId  = undefined,
 	currentTime        = 0;
 
-var minTime = undefined,
-	midTime = undefined,
-	maxTime = undefined,
-	dqTime  = undefined,
+var minTime        = undefined,
+	midTime         = undefined,
+	maxTime         = undefined,
+	dqTime          = undefined,
 	growerAnimation = undefined;
 
 var defaultColor = 'hsl(0, 0%, 27%)',    // gray
-	minColor     = 'hsl(119, 59%, 52%)', // green
-	midColor     = 'hsl(51, 78%, 57%)',  // yellow
-	maxColor     = 'hsl(353, 76%, 58%)'; // red
+	minColor      = 'hsl(119, 59%, 52%)', // green
+	midColor      = 'hsl(51, 78%, 57%)',  // yellow
+	maxColor      = 'hsl(353, 76%, 58%)'; // red
 
 TweenLite.defaultEase = Linear.easeNone;
 
@@ -106,6 +106,7 @@ function onSpaceKey(buttonAction) {
 		}
 	}
 }
+
 //-----------------
 // timing core
 //-----------------
