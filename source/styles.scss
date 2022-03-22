@@ -10,6 +10,15 @@ $box-shadow: 0 0 2em hsla(0, 0, 0, 0.2);
 	box-sizing: border-box;
 }
 
+:root {
+	accent-color: teal;
+}
+
+input {
+	inline-size: 1.3em;
+	block-size: 1.3em;
+}
+
 html {
 	height: 100%;
 	font-size: 20px;
@@ -60,6 +69,8 @@ body {
 			border-bottom: 1px solid $border-color;
 			padding: 1em;
 			transition: background-color 0.2s linear;
+			display: flex;
+			align-items: center;
 			&:last-child {
 				border-bottom: 0;
 			}
@@ -79,6 +90,7 @@ body {
 	background-color: transparent;
 	margin-top: 0;
 	button.option {
+		display: block;
 		font-size: 1rem;
 		font-weight: 700;
 		background-color: $lighter-background-color;
@@ -109,8 +121,10 @@ body {
 }
 
 #times {
+	label {
+		justify-content: space-between;
+	}
 	input {
-		float: right;
 		display: block;
 		width: 3.5em;
 		font-size: 1rem;
