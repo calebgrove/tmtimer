@@ -3,7 +3,7 @@ $low-contrast: hsla(0, 0, 100, 0.3);
 $text-color: hsla(0, 0, 0, 0.6);
 $border-color: hsla(0, 0, 0, 0.3);
 $lighter-background-color: hsla(0, 0, 100, 1);
-$font-set: 'Nunito', -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+$font-set: 'Roboto', -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
 $box-shadow: 0 0 2em hsla(0, 0, 0, 0.2);
 
 * {
@@ -56,6 +56,7 @@ body {
 	.option {
 			display: block;
 			width: 100%;
+			cursor: pointer;
 			border-bottom: 1px solid $border-color;
 			padding: 1em;
 			transition: background-color 0.2s linear;
@@ -160,12 +161,10 @@ body {
 	width:0;
 	height:0;
 	position:absolute;
-
 	border-top: 8px solid transparent;
 	border-bottom: 8px solid transparent;
 	border-right:8px solid $lighter-background-color;
 	left:-8px;
-
 	top:18px;
 }
 
@@ -208,11 +207,12 @@ body {
 
 #infoButton {
 	position: absolute;
+	line-height: 1.8;
 	z-index: 100;
 	top: 3vmin;
 	right: 3vmin;
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: 700;
 	background-color: $background-color;
 	border: 0;
 	cursor: pointer;
@@ -221,7 +221,7 @@ body {
 	width: 45px;
 	color: $text-color;
 	border-radius: 100%;
-	font-family: monospace;
+	font-family: 'Roboto Mono', monospace;
 	display: flex;
 	justify-content: center;
 	box-shadow: $box-shadow;
@@ -295,6 +295,7 @@ body {
 		padding: 0 1em;
 		.option {
 			padding: 0.8em !important;
+			cursor: pointer;
 		}
 	}
 	

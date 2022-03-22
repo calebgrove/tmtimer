@@ -205,7 +205,7 @@ function showInfo() {
 	//infoWrapper.onclick = hideInfo();
 
 	infoButton.onclick = function(){ hideInfo() };
-	infoButton.innerHTML = "x";
+	infoButton.innerHTML = "&times;";
 
 	// Log it to analytics:
 	gtag('event', 'Info Displayed');
