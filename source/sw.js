@@ -1,4 +1,4 @@
-appVersion = 0321200221;
+appVersion = 03212002212;
 
 self.addEventListener("install", function(event) {
 	//console.log('WORKER: install event in progress.');
